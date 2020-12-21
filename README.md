@@ -72,6 +72,14 @@ gcloud secrets add-iam-policy-binding $SECRET_DB_PASS_KEY \
     --role roles/secretmanager.secretAccessor \
     --member serviceAccount:${PROJECT_ID}@appspot.gserviceaccount.com
 
+# create pubsub topics
+gcloud pubsub topics create request
+gcloud pubsub topics create prediction
+gcloud pubsub topics create feedback
+gcloud pubsub topics create training
+gcloud pubsub topics create job
+gcloud pubsub topics create model
+
 # deploy the functions
 gcloud functions deploy prediction \
     --runtime python38 \
