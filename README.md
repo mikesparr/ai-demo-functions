@@ -21,6 +21,7 @@ export GCP_ZONE="us-central1-a"
 export VPC_CONN_NAME="serverless-connector" # created before
 export REDIS_INSTANCE="ml-cache1" # created before
 export DB_INSTANCE="ml-classification1" # created before
+export BUCKET_NAME="mike-test-classification-models1"
 export ENV_VAR_FILE="env-vars.yaml"
 export SECRET_DB_PASS_KEY="db-pass"
 
@@ -64,13 +65,16 @@ DBNAME: "bank_data"
 DBHOST: $DB_INSTANCE_PRIVATE_IP
 DBUSER: "ml_readwrite"
 DBPORT: "5432"
-BUCKET: "mike-test-classification-models1"
+BUCKET: $BUCKET_NAME
 EOF
 
 # enable functions to access secrets
 gcloud secrets add-iam-policy-binding $SECRET_DB_PASS_KEY \
     --role roles/secretmanager.secretAccessor \
     --member serviceAccount:${PROJECT_ID}@appspot.gserviceaccount.com
+
+# create storage bucket
+gsutil mb -p $PROJECT_ID -l US-CENTRAL1 -b on gs://$BUCKET_NAME
 
 # create pubsub topics
 gcloud pubsub topics create request
