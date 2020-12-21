@@ -189,5 +189,10 @@ repository for configuration, and all infrastructure provisioning will be manage
 This demo ML app is built using the [banknote authentication data set](https://archive.ics.uci.edu/ml/datasets/banknote+authentication) and a copy is saved in file `bank_data.csv`. The database schema is designed
 based on this data and it's four features.
 
+# Notebook
+I have included the Jupyter Notebook file for the initial training and experimentation. After 
+`dumping` the model file, I then took relevant code and applied to the `prediction` and `training` 
+Cloud Functions respectively, and then pieced together the rest of the ML Pipeline.
+
 # Contributing
 This is just a demo so fork and use at your own discretion.
