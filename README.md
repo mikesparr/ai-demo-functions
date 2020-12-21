@@ -3,6 +3,9 @@ These Cloud Functions are triggered by Google Pub/Sub topics for training and se
 machine learning models with automatic retraining feedback loop. The results can then be viewed 
 using the [predict API](https://github.com/mikesparr/ai-demo-predict).
 
+## Secrets
+These functions use environment variables and [Google Cloud Secret Manager](https://cloud.google.com/secret-manager) for configuring the functions.
+
 # Architecture
 ![AI demo architecture](./img_arch.png)
 
@@ -21,7 +24,7 @@ repository for configuration, and all infrastructure provisioning will be manage
 
 # Training data
 This demo ML app is built using the [banknote authentication data set](https://archive.ics.uci.edu/ml/datasets/banknote+authentication) and a copy is saved in file `bank_data.csv`. The database schema is designed
-based on this data and it's four features.
+based on this data and it's four features: `variance`,`skewness`,`curtosis`,`entropy`.
 
 # Notebook
 I have included the Jupyter Notebook file for the initial training and experimentation. After 
