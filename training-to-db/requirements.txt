@@ -1,0 +1,5 @@
+# Function dependencies, for example:
+# package>=version
+
+google-cloud-secret-manager==2.1.0
+psycopg2-binary==2.8.6
