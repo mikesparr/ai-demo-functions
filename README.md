@@ -72,7 +72,7 @@ gcloud secrets add-iam-policy-binding $SECRET_DB_PASS_KEY \
     --role roles/secretmanager.secretAccessor \
     --member serviceAccount:${PROJECT_ID}@appspot.gserviceaccount.com
 
-# deployment commands (must cd to respective folders)
+# deploy the functions
 gcloud functions deploy prediction \
     --runtime python38 \
     --source ./prediction \
