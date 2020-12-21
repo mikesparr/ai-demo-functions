@@ -6,6 +6,13 @@ using the [predict API](https://github.com/mikesparr/ai-demo-predict).
 # Architecture
 ![AI demo architecture](./arch.png)
 
+# Components
+- [Config](https://#) (pending)
+- [Web App](https://#) (pending)
+- [Ingest API](https://github.com/mikesparr/ai-demo-ingest)
+- [Predict API](https://github.com/mikesparr/ai-demo-predict)
+- [Processors](https://github.com/mikesparr/ai-demo-functions) (this repo)
+
 # Prerequisites
 You must be familiar with Google Cloud Platform and have the [Google Cloud SDK](https://cloud.google.com/sdk/docs/install) (`gcloud` CLI) installed. 
 If you want to recreate the **AI Demo** then you will want an active project with billing enabled.
