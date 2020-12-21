@@ -4,7 +4,7 @@ machine learning models with automatic retraining feedback loop. The results can
 using the [predict API](https://github.com/mikesparr/ai-demo-predict).
 
 # Architecture
-![AI demo architecture](./arch.png)
+![AI demo architecture](./img_arch.png)
 
 # Components
 - [Config](https://#) (pending)
@@ -12,6 +12,23 @@ using the [predict API](https://github.com/mikesparr/ai-demo-predict).
 - [Ingest API](https://github.com/mikesparr/ai-demo-ingest)
 - [Predict API](https://github.com/mikesparr/ai-demo-predict)
 - [Processors](https://github.com/mikesparr/ai-demo-functions) (this repo)
+
+# Database
+The database design can be found in `schema.sql` file. The plan is to create a separate
+repository for configuration, and all infrastructure provisioning will be managed there.
+
+![Example records](./img_db.png)
+
+# Training data
+This demo ML app is built using the [banknote authentication data set](https://archive.ics.uci.edu/ml/datasets/banknote+authentication) and a copy is saved in file `bank_data.csv`. The database schema is designed
+based on this data and it's four features.
+
+# Notebook
+I have included the Jupyter Notebook file for the initial training and experimentation. After 
+`dumping` the model file, I then took relevant code and applied to the `prediction` and `training` 
+Cloud Functions respectively, and then pieced together the rest of the ML Pipeline.
+
+![Example notebook](./img_notebook.png)
 
 # Prerequisites
 You must be familiar with Google Cloud Platform and have the [Google Cloud SDK](https://cloud.google.com/sdk/docs/install) (`gcloud` CLI) installed. 
@@ -180,19 +197,6 @@ gcloud functions deploy training-to-db \
     --memory 256MB \
     --trigger-topic model
 ```
-
-# Database
-The database design can be found in `schema.sql` file. The plan is to create a separate
-repository for configuration, and all infrastructure provisioning will be managed there.
-
-# Training data
-This demo ML app is built using the [banknote authentication data set](https://archive.ics.uci.edu/ml/datasets/banknote+authentication) and a copy is saved in file `bank_data.csv`. The database schema is designed
-based on this data and it's four features.
-
-# Notebook
-I have included the Jupyter Notebook file for the initial training and experimentation. After 
-`dumping` the model file, I then took relevant code and applied to the `prediction` and `training` 
-Cloud Functions respectively, and then pieced together the rest of the ML Pipeline.
 
 # Contributing
 This is just a demo so fork and use at your own discretion.
