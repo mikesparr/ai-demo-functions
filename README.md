@@ -6,6 +6,9 @@ using the [predict API](https://github.com/mikesparr/ai-demo-predict).
 ## Secrets
 These functions use environment variables and [Google Cloud Secret Manager](https://cloud.google.com/secret-manager) for configuring the functions.
 
+# Demo
+![Cloud Functions demo](./img_demo.png)
+
 # Architecture
 ![AI demo architecture](./img_arch.png)
 

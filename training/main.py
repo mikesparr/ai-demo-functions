@@ -59,6 +59,44 @@ conn = psycopg2.connect(
 )
 print(conn.dsn)
 
+# helper functions
+def upload_blob(source_file_name, destination_blob_name):
+    """Uploads a file to the bucket."""
+    # source_file_name = "local/path/to/file"
+    # destination_blob_name = "storage-object-name"
+
+    blob = bucket.blob(destination_blob_name)
+    blob.upload_from_filename(source_file_name)
+
+    print(
+        "File {} uploaded to {}.".format(
+            source_file_name, destination_blob_name
+        )
+    )
+
+def publish_to_topic(message):
+     """Publishes messages to a pubsub topic.
+     Args:
+          message (dict): Message payload.
+     """
+
+     print(message)
+
+     publish_start = time.process_time()
+     # Data must be a bytestring
+     encoded_message = json.dumps(message).encode("utf-8")
+
+     # Add attributes to the message
+     future = publisher.publish(
+          topic_path, encoded_message, foo="bar", fizz="buzz"
+     )
+     publish_stop = time.process_time()
+     print(future.result())
+
+     print(f"Published message to {topic_path}.")
+     print(f"{'Message publishing took':25}: {publish_stop-publish_start}")
+
+
 # process
 def process(event, context):
     """Triggered from a message on a Cloud Pub/Sub topic.
@@ -139,40 +177,3 @@ def process(event, context):
         'testing_time': test_stop-test_start
     }
     publish_to_topic(response)
-
-def upload_blob(source_file_name, destination_blob_name):
-    """Uploads a file to the bucket."""
-    # source_file_name = "local/path/to/file"
-    # destination_blob_name = "storage-object-name"
-
-    blob = bucket.blob(destination_blob_name)
-    blob.upload_from_filename(source_file_name)
-
-    print(
-        "File {} uploaded to {}.".format(
-            source_file_name, destination_blob_name
-        )
-    )
-
-def publish_to_topic(message):
-     """Publishes messages to a pubsub topic.
-     Args:
-          message (dict): Message payload.
-     """
-
-     print(message)
-
-     publish_start = time.process_time()
-     # Data must be a bytestring
-     encoded_message = json.dumps(message).encode("utf-8")
-
-     # Add attributes to the message
-     future = publisher.publish(
-          topic_path, encoded_message, foo="bar", fizz="buzz"
-     )
-     publish_stop = time.process_time()
-     print(future.result())
-
-     print(f"Published message to {topic_path}.")
-     print(f"{'Message publishing took':25}: {publish_stop-publish_start}")
-

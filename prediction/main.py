@@ -100,7 +100,6 @@ def download_object_file(bucket_name, source_filename='model.joblib', dest_filen
 def publish_to_topic(message):
      """Publishes messages to a pubsub topic.
      Args:
-          topic (string): Topic name.
           message (dict): Message payload.
      """
 

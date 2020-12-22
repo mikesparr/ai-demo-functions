@@ -48,7 +48,6 @@ print(conn.dsn)
 def publish_to_topic(message):
      """Publishes messages to a pubsub topic.
      Args:
-          topic (string): Topic name.
           message (dict): Message payload.
      """
 
