@@ -208,7 +208,7 @@ gcloud functions deploy training-to-db \
 Although this is only a demo, a few additional features that should be added would be:
 - automated tests
 - retry logic with exponential backoff
-- tracing using [opentracing](https://opentracing.io/)
+- tracing, metrics using [opentelemetry](https://opentelemetry.io/)
 - messages using [cloudevents](https://cloudevents.io/)
 
 # Contributing
