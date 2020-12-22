@@ -204,5 +204,12 @@ gcloud functions deploy training-to-db \
     --trigger-topic model
 ```
 
+# Other considerations
+Although this is only a demo, a few additional features that should be added would be:
+- automated tests
+- retry logic with exponential backoff
+- tracing using [opentracing](https://opentracing.io/)
+- messages using [cloudevents](https://cloudevents.io/)
+
 # Contributing
 This is just a demo so fork and use at your own discretion.
