@@ -25,9 +25,9 @@ example = """
 
 project_id = os.environ.get('PROJECT_ID', 'mike-test-ml-classification1')
 topic_id = os.environ.get('TOPIC_ID', 'prediction') # where to publish to ->
+bucket_name = os.environ.get('BUCKET', 'mike-test-classification-models1')
 
 model_key = 'model:latest'
-bucket_name = 'mike-test-classification-models1'
 model_file = 'model.joblib' # default
 next_model_download = datetime.datetime.now()
 
