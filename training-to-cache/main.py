@@ -1,5 +1,6 @@
 import os
 import time
+import datetime
 import base64
 import json
 import redis
@@ -55,7 +56,8 @@ def process(event, context):
         'accuracy': data['accuracy'],
         'data_prep_time': data['data_prep_time'],
         'training_time': data['training_time'],
-        'testing_time': data['testing_time']
+        'testing_time': data['testing_time'],
+        'created': datetime.datetime.utcnow().isoformat()
     }
 
     redis_client.lpush(jobs_key, json.dumps(job))

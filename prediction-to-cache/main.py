@@ -1,5 +1,6 @@
 import os
 import time
+import datetime
 import base64
 import json
 import redis
@@ -36,6 +37,7 @@ def process(event, context):
         'batch_id': batch_id,
         'subjects': subjects,
         'predictions': outputs,
+        'created': datetime.datetime.utcnow().isoformat()
     }
 
     redis_client.lpush(batch_key, json.dumps(row))
