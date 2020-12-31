@@ -14,7 +14,7 @@ These functions use environment variables and [Google Cloud Secret Manager](http
 
 # Components
 - [Config](https://#) (pending)
-- [Web App](https://#) (pending)
+- [Web App](https://github.com/mikesparr/ai-demo-web)
 - [Ingest API](https://github.com/mikesparr/ai-demo-ingest)
 - [Predict API](https://github.com/mikesparr/ai-demo-predict)
 - [Processors](https://github.com/mikesparr/ai-demo-functions) (this repo)
