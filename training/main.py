@@ -29,7 +29,7 @@ example = """
 """
 
 project_id = os.environ.get('PROJECT_ID', 'mike-test-ml-classification1')
-topic_id = os.environ.get('TOPIC_ID', 'training') # where to publish to ->
+topic_id = os.environ.get('TOPIC_ID', 'model') # where to publish to ->
 bucket_name = os.environ.get('BUCKET', 'mike-test-classification-models1')
 db_pass_key = 'db-pass'
 
