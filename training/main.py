@@ -111,7 +111,33 @@ def process(event, context):
     print(f"Fetching training set from database")
     db_start = time.process_time()
 
-    query = "SELECT variance, skewness, curtosis, entropy, class FROM training LIMIT 2500"
+    # fetch balanced amount of rows for both classes and de-duplicate based on feature columns
+    query = """
+    WITH l AS
+        (
+            SELECT one_count, two_count, LEAST(one_count, two_count) as max_per_class 
+            FROM
+                (
+                    SELECT COUNT(1) as one_count FROM training WHERE class = 1
+                ) as derivedTable1,
+                (
+                    SELECT COUNT(1) as two_count FROM training WHERE class = 0
+                ) as derivedTable2
+        )
+    (
+        SELECT variance, skewness, curtosis, entropy, class 
+        FROM training WHERE class = 0 
+        GROUP BY variance, skewness, curtosis, entropy, class 
+        LIMIT (SELECT max_per_class FROM l)
+    )
+    UNION ALL
+    (
+        SELECT variance, skewness, curtosis, entropy, class 
+        FROM training WHERE class = 1 
+        GROUP BY variance, skewness, curtosis, entropy, class 
+        LIMIT (SELECT max_per_class FROM l)
+    )
+    """
 
     # fetch records
     try:
