@@ -156,14 +156,28 @@ def process(event, context):
     conn.commit()
     db_stop = time.process_time()
 
-    # prepare data
+    # prepare training data
     prep_start = time.process_time()
     bankdata = pd.DataFrame(rows, columns = ['Variance', 'Skewness', 'Curtosis', 'Entropy', 'Class'])
     X = bankdata.drop('Class', axis=1)  # X = features
     y = bankdata['Class']               # y = target (label)
 
-    # divide into training and testing
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20)
+    # if small dataset, used fixed training set, otherwise split train/test
+    # previously if 10 records in initial set, only 2 in test set and false accuracy scores
+    if len(rows) < 100:
+        print("Using fixed test set since training set below 100 records")
+        # prepare fixed test data (since training starts with so few records for demo)
+        testdata = pd.read_csv("bank_data_testset.csv")
+        X_test = testdata.drop('class', axis=1)  # X = features
+        y_test = testdata['class']               # y = target (label)
+
+        # set training data from DB results
+        X_train = X
+        y_train = y
+    else:
+        # divide into training and testing
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20)
+    
     prep_stop = time.process_time()
 
     # fit data
