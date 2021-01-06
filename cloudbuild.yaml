@@ -1,0 +1,29 @@
+steps:
+- name: 'bash'
+  args:
+  - '-c'
+  - |
+    cat > .env.deploy << EOF
+    REDISHOST: $_REDISHOST
+    REDISPORT: $_REDISPORT
+    PROJECT_ID: $_PROJECT_ID
+    DBNAME: $_DBNAME
+    DBHOST: $_DBHOST
+    DBUSER: $_DBUSER
+    DBPORT: $_DBPORT
+    BUCKET: $_BUCKET
+    EOF
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - functions
+  - deploy
+  - $_FUNCTION_NAME
+    --runtime python38
+    --source ./$_FUNCTION_NAME
+    --env-vars-file .env.deploy
+    --vpc-connector $_VPC_CONN
+    --region $_GCP_REGION
+    --egress-settings private-ranges-only
+    --entry-point process
+    --memory $_MEMORY
+    --trigger-topic $_TRIGGER_TOPIC
