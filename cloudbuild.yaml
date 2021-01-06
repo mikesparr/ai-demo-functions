@@ -13,6 +13,8 @@ steps:
     DBPORT: $_DBPORT
     BUCKET: $_BUCKET
     EOF
+    echo "Created env file"
+    cat .env.deploy
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
   - functions
