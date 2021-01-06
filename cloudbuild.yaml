@@ -18,12 +18,12 @@ steps:
   - functions
   - deploy
   - $_FUNCTION_NAME
-    --runtime python38
-    --source ./$_FUNCTION_NAME
-    --env-vars-file .env.deploy
-    --vpc-connector $_VPC_CONN
-    --region $_GCP_REGION
-    --egress-settings private-ranges-only
-    --entry-point process
-    --memory $_MEMORY
-    --trigger-topic $_TRIGGER_TOPIC
+  - --runtime python38
+  - --source ./$_FUNCTION_NAME
+  - --env-vars-file .env.deploy
+  - --vpc-connector $_VPC_CONN
+  - --region $_GCP_REGION
+  - --egress-settings private-ranges-only
+  - --entry-point process
+  - --memory $_MEMORY
+  - --trigger-topic $_TRIGGER_TOPIC
