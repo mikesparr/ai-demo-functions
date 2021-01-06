@@ -2,7 +2,6 @@ import os
 import time
 import json
 import base64
-import logging
 import psycopg2
 
 from google.cloud import secretmanager
