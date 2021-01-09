@@ -5,7 +5,7 @@ import base64
 import json
 import redis
 
-batch_key = 'batches'
+batch_key = 'batches' # TODO: consider env var
 
 # initiate redis cache
 redis_host = os.environ.get('REDISHOST', 'localhost')
