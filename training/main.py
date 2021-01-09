@@ -62,8 +62,6 @@ print(conn.dsn)
 # helper functions
 def upload_blob(source_file_name, destination_blob_name):
     """Uploads a file to the bucket."""
-    # source_file_name = "local/path/to/file"
-    # destination_blob_name = "storage-object-name"
 
     blob = bucket.blob(destination_blob_name)
     blob.upload_from_filename(source_file_name)
@@ -155,12 +153,13 @@ def process(event, context):
 
     conn.commit()
     db_stop = time.process_time()
+    print(f"{'Database took':25}: {db_stop-db_start}")
 
     # prepare training data
     prep_start = time.process_time()
     bankdata = pd.DataFrame(rows, columns = ['Variance', 'Skewness', 'Curtosis', 'Entropy', 'Class'])
-    X = bankdata.drop('Class', axis=1)  # X = features
-    y = bankdata['Class']               # y = target (label)
+    x = bankdata.drop('Class', axis=1)  # x: features
+    y = bankdata['Class']               # y: target (label)
 
     # if small dataset, used fixed training set, otherwise split train/test
     # previously if 10 records in initial set, only 2 in test set and false accuracy scores
@@ -168,15 +167,15 @@ def process(event, context):
         print("Using fixed test set since training set below 100 records")
         # prepare fixed test data (since training starts with so few records for demo)
         testdata = pd.read_csv("bank_data_testset.csv")
-        X_test = testdata.drop('class', axis=1)  # X = features
-        y_test = testdata['class']               # y = target (label)
+        x_test = testdata.drop('class', axis=1)  # x: features
+        y_test = testdata['class']               # y: target (label)
 
         # set training data from DB results
-        X_train = X
+        x_train = x
         y_train = y
     else:
         # divide into training and testing
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20)
+        x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.20)
     
     prep_stop = time.process_time()
 
@@ -185,13 +184,13 @@ def process(event, context):
     job_id = uuid.uuid1().hex
     print("Training model")
     svclassifier = SVC(kernel='linear')
-    svclassifier.fit(X_train, y_train)
+    svclassifier.fit(x_train, y_train)
     train_stop = time.process_time()
 
     # analyze results
     test_start = time.process_time()
     print("Testing prediction")
-    prediction = svclassifier.predict(X_test)
+    prediction = svclassifier.predict(x_test)
     print(prediction)
     report = classification_report(y_test, prediction, output_dict=True)
     print(f"Accuracy was {report['accuracy']}")

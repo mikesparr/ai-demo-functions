@@ -26,7 +26,6 @@ def process(event, context):
     print(data)
 
     subjects = data['subjects']
-    inputs = data['input']
     outputs = data['output']
     batch_id = data['batch_id']
 

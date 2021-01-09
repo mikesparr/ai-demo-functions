@@ -29,12 +29,14 @@ example = """
 }
 """
 
+DEFAULT_MODEL_FILE = 'model.joblib'
+
 project_id = os.environ.get('PROJECT_ID', 'mike-test-ml-classification1')
 topic_id = os.environ.get('TOPIC_ID', 'prediction') # where to publish to ->
 bucket_name = os.environ.get('BUCKET', 'mike-test-classification-models1')
 
 model_key = 'model:latest'
-model_file = 'model.joblib' # default
+model_file = DEFAULT_MODEL_FILE # default
 next_model_download = datetime.datetime.now()
 
 # initiate pubsub
@@ -85,7 +87,7 @@ def fetch_latest_model_from_cache():
                model_file = cached_model_file_name
                download_object_file(bucket_name, model_file, model_file)
 
-def download_object_file(bucket_name, source_filename='model.joblib', dest_filename='model.joblib'):
+def download_object_file(bucket_name, source_filename=DEFAULT_MODEL_FILE, dest_filename=DEFAULT_MODEL_FILE):
      """Downloads file from bucket and saves in /tmp dir.
      Args:
           bucket_name (string): Bucket name.

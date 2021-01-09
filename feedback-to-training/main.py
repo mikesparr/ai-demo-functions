@@ -83,7 +83,6 @@ def process(event, context):
     print(data)
 
     subjects = data['subjects']
-    ratings = data['ratings']
     batch_id = data['batch_id']
 
     print(f"Updating {len(subjects)} predictions in database")
