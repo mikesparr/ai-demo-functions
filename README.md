@@ -1,4 +1,5 @@
-# AI Demo Cloud Functions
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mikesparr_ai-demo-functions&metric=alert_status)](https://sonarcloud.io/dashboard?id=mikesparr_ai-demo-functions)
+
 These Cloud Functions are triggered by Google Pub/Sub topics for training and serving 
 machine learning models with automatic retraining feedback loop. The results can then be viewed 
 using the [predict API](https://github.com/mikesparr/ai-demo-predict).
