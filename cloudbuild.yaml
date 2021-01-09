@@ -18,7 +18,8 @@ steps:
       -Dsonar.sources=./$_FUNCTION_NAME \
       -Dsonar.host.url=https://sonarcloud.io
 # Create env vars file to pass to gcloud command
-- name: 'bash'
+- id: 'env'
+  name: 'bash'
   args:
   - '-c'
   - |
@@ -35,7 +36,8 @@ steps:
     echo "Created env file"
     cat .env.deploy
 # Deploy the function
-- name: 'gcr.io/cloud-builders/gcloud'
+- id: 'deploy'
+  name: 'gcr.io/cloud-builders/gcloud'
   args:
   - functions
   - deploy
