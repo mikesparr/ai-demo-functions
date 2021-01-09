@@ -6,6 +6,7 @@ steps:
   - '-Dsonar.organization=$_SONAR_ORG'
   - '-Dsonar.projectKey=$_SONAR_KEY'
   - '-Dsonar.sources=./$_FUNCTION_NAME'
+  - '-Dsonar.scm.disabled=True'
   - '-Dsonar.host.url=https://sonarcloud.io'
 # Create env vars file to pass to gcloud command
 - id: 'env'
