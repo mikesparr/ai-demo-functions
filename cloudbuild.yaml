@@ -1,7 +1,8 @@
 steps:
-# Download SonarQube code scanner
-- id: 'download'
-  name: 'bash'
+# Scan source for security vulnerabilities
+- id: 'scan'
+  name: gcr.io/cloud-builders/gcloud
+  entrypoint: "bash"
   args:
   - '-c'
   - |
@@ -11,15 +12,9 @@ steps:
     unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
     export PATH=$SONAR_SCANNER_HOME/bin:$PATH
     export SONAR_SCANNER_OPTS="-server"
-# Scan source for security vulnerabilities
-- id: 'scan'
-  name: 'bash'
-  args:
-  - '-c'
-  - |
     sonar-scanner \
-      -Dsonar.organization=montana-mike \
-      -Dsonar.projectKey=mikesparr_ai-demo-functions \
+      -Dsonar.organization=$_SONAR_ORG \
+      -Dsonar.projectKey=$_SONAR_KEY \
       -Dsonar.sources=./$_FUNCTION_NAME \
       -Dsonar.host.url=https://sonarcloud.io
 # Create env vars file to pass to gcloud command
